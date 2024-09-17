@@ -64,7 +64,7 @@ void MainWindow::loadSubWindow(QWidget * widget,int height)
 
 void MainWindow::on_actionAjuda_triggered()
 {
-    ui->Log->append("Conrole de estoque Open Software(C) 2023");
+    ui->Log->append("Controle de estoque Open Software(C) 2023-2024 rev.A");
     ui->Log->append("----------------------------------------");
     ui->Log->append("Versão.......: "+Cconfig::getInstance()->getVersion());
     ui->Log->append("Database dir.: "+Cconfig::getInstance()->getDatabaseDir());
@@ -77,6 +77,7 @@ void MainWindow::on_actionConectar_BD_triggered()
     ui->Log->append("Setando database...");
 
     if( !Cgeral::getInstance()->getBConnected() ){
+        ui->Log->append("Opening database...");
         if(db.open()){
                 ui->Log->append("Database connected succesfully");
                 Cgeral::getInstance()->setBConnected();
@@ -84,13 +85,17 @@ void MainWindow::on_actionConectar_BD_triggered()
                     Cgeral::getInstance()->getWidget()->setDisabled(false);
                 }
             }else{
+                ui->Log->append("Error to open Database ...");
+            }
+    }else{
+            ui->Log->append("Closing database...");
+
                 db.close();
                 ui->Log->append("Database disconnected...");
                 Cgeral::getInstance()->resetBConnected();
                 if ( Cgeral::getInstance()->getWidget() != nullptr ){
                     Cgeral::getInstance()->getWidget()->setDisabled(true);
                 }
-            }
     }
 }
 

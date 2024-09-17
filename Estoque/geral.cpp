@@ -11,6 +11,7 @@ QMdiSubWindow * Cgeral::window = nullptr;
 Cgeral * Cgeral::getInstance()
 {
    if (  instancia == nullptr ){
+        bConnected = false;
        instancia = new Cgeral();
    }
     return instancia;
